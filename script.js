@@ -1,7 +1,7 @@
 const display = document.getElementById("display");
 const question = document.getElementById("question");
 const startBtn = document.getElementById("start");
-const countdownOverlay = document.getElementById("countdown");
+const countdownOverlay = document.getElementById("countdowns");
 const resultModal = document.getElementById("result");
 const modalBackground = document.getElementById("modal-background");
 
@@ -15,6 +15,9 @@ let questionText = "";
 fetch("./texts.json")
   .then((res) => res.json())
   .then((data) => {
+
+    console.log(data)
+
     questionText = data[Math.floor(Math.random() * data.length)];
     question.innerHTML = questionText;
   });
@@ -105,26 +108,35 @@ const start = () => {
 
   let count = 3;
   countdownOverlay.style.display = "flex";
-
   const startCountdown = setInterval(() => {
-    countdownOverlay.innerHTML = '<h1>${count}</h1>';
+
+    countdownOverlay.innerHTML = `<h1 id="time"> ${count} </h1>`;
+
+    if (count == 0) {
+      const countdown = document.getElementById("countdowns")
+      countdown.classList.remove('countdown')
+    }
 
     // finished timer
     if (count == 0) {
+
+
+
+
       // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
       countdownOverlay.style.display = "flex";
       display.classList.remove("inactive");
-
       clearInterval(startCountdown);
       startTime = new Date().getTime();
     }
+
     count--;
   }, 1000);
 };
 
 // START Countdown
-startBtn.addEventListener("click", start);
+document.getElementById('starts').addEventListener("click", start);
 
 // If history exists, show it
 displayHistory();
