@@ -45,10 +45,16 @@ const typeController = (e) => {
 
   const newLetterCorrect = validate(newLetter);
 
+
+
   if (newLetterCorrect) {
     display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
   } else {
     display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`;
+
+    errorCount++;
+    return errorCount;
+
   }
 
   // check if given question text is equal to user typed text
@@ -110,7 +116,7 @@ const start = () => {
   countdownOverlay.style.display = "flex";
   const startCountdown = setInterval(() => {
 
-    countdownOverlay.innerHTML = `<h1 id="time"> ${count} </h1>`;
+    countdownOverlay.innerHTML = `<h1> ${count} </h1>`;
 
     if (count == 0) {
       const countdown = document.getElementById("countdowns")
@@ -119,10 +125,6 @@ const start = () => {
 
     // finished timer
     if (count == 0) {
-
-
-
-
       // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
       countdownOverlay.style.display = "flex";
@@ -145,7 +147,8 @@ displayHistory();
 setInterval(() => {
   const currentTime = new Date().getTime();
   const timeSpent = (currentTime - startTime) / 1000;
+  const timeSpents = parseInt(timeSpent)
 
 
-  document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;
+  document.getElementById("show-time").innerHTML = `${startTime ? timeSpents : 0} seconds`;
 }, 1000);
