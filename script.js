@@ -42,10 +42,7 @@ const typeController = (e) => {
   }
 
   userText += newLetter;
-
   const newLetterCorrect = validate(newLetter);
-
-
 
   if (newLetterCorrect) {
     display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
@@ -150,7 +147,7 @@ setInterval(() => {
   const currentTime = new Date().getTime();
   const timeSpent = (currentTime - startTime) / 1000;
   const timeSpents = parseInt(timeSpent)
-
-
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpents : 0} seconds`;
 }, 1000);
+
+// end
